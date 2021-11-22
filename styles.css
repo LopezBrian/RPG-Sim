@@ -1,0 +1,39 @@
+body{
+    background-color: rgb(127, 35, 149) !important;
+    color: rgb(127, 35, 149);
+    padding: 10px;
+}
+
+div{
+    border: 2px, solid;
+    border-radius: 2px;
+    width: max-content;
+    padding: 5px;
+    margin: 5px;
+}
+
+label + input{
+    width: 35vw;
+}
+
+h2{
+    color: black;
+    width: max-content;
+}
+
+h2 ul li{
+    font-weight: bolder;
+    font-size: 10px;
+}
+
+form button{
+    margin: 5px;
+}
+
+button{
+    border: 2px, solid;
+    border-radius: 2px;
+    width: max-content;
+    padding: 5px;
+    margin: 5px;
+}
