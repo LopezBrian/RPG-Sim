@@ -34,7 +34,7 @@ form{
 
 label{
     width: 35vw;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bolder;
     background-color: #146C43;
     border-radius: 10px;
@@ -96,8 +96,14 @@ button{
     font-weight: 600;
 }
 
-#subida-nivel{
+#subida-nivel, #div-experiencia, #item-encontrado {
     background-color: rgb(235, 231, 16);
+    border-radius: 10px;    
+    font-weight: 600;
+}
+
+#inventario-lleno {
+    background-color: rgb(216, 26, 20);
     border-radius: 10px;    
     font-weight: 600;
 }

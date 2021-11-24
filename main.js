@@ -121,6 +121,8 @@ class Personaje{
         
         let ultimoItem = document.getElementById('item-encontrado');
         let ultimoInventario = document.getElementById('inventario-lleno');
+        let listaInventario = document.getElementById('lista-inventario');
+
 
         if (ultimoItem != null) {
             ultimoItem.parentNode.removeChild(ultimoItem);
@@ -134,7 +136,7 @@ class Personaje{
             let inventarioLleno = document.createElement('div');
             inventarioLleno.id = 'inventario-lleno';
             inventarioLleno.innerHTML = `<div>Tu inventario esta lleno!</div>`;
-            document.body.appendChild(inventarioLleno);
+            listaInventario.appendChild(inventarioLleno);
         }else{
             this.inventario.push(items_array[item_index]);
             sessionStorage.setItem('inventario', this.inventario);
@@ -147,10 +149,11 @@ class Personaje{
 
         console.log(this.inventario);
 
+        /* let listaInventario = document.getElementById('lista-inventario'); */
         let itemEncontrado = document.createElement('div');
         itemEncontrado.id = 'item-encontrado';
         itemEncontrado.innerHTML = `<div>Encontraste un item, tenes ${this.inventario.length} items</div>`;
-        document.body.appendChild(itemEncontrado);
+        listaInventario.appendChild(itemEncontrado);
     }
 
     borrar(){
