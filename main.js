@@ -15,7 +15,7 @@ class Personaje{
         sessionStorage.setItem('salud', this.salud);
         sessionStorage.setItem('experiencia', this.experiencia);
         sessionStorage.setItem('nivel', this.nivel);
-        sessionStorage.setItem('inventario', this.inventario);
+        sessionStorage.setItem('inventario', JSON.stringify(this.inventario));
     }
 
     atacar() {    //Primer método   
@@ -117,25 +117,40 @@ class Personaje{
         let items_array = ['Pocion de vida', 'Pocion de mana', 'Pechera', 'Botas', 'Casco', 'Trofeo', 'Espada', 'Hacha', 'Arco', 'Reliquia'];
         let item_index = Math.floor(Math.random() * items_array.length);
         
-        this.inventario = sessionStorage.getItem('inventario');
+        console.log(this.inventario);
+        
+        let ultimoItem = document.getElementById('item-encontrado');
+        let ultimoInventario = document.getElementById('inventario-lleno');
+
+        if (ultimoItem != null) {
+            ultimoItem.parentNode.removeChild(ultimoItem);
+        }
+
+        if (ultimoInventario != null) {
+            ultimoInventario.parentNode.removeChild(ultimoInventario);
+        }
 
         if (this.inventario.length>=6) {
             let inventarioLleno = document.createElement('div');
+            inventarioLleno.id = 'inventario-lleno';
             inventarioLleno.innerHTML = `<div>Tu inventario esta lleno!</div>`;
             document.body.appendChild(inventarioLleno);
         }else{
             this.inventario.push(items_array[item_index]);
             sessionStorage.setItem('inventario', this.inventario);
-            let div3 = document.createElement('ul');
-            div3.innerHTML = `<li>${this.inventario[this.inventario.length-1]}</li>`;
-            document.body.appendChild(div3);
+            let listaInventario = document.getElementById('lista-inventario');
+            let itemNuevo = document.createElement('li');
+            let itemNombre = document.createTextNode(this.inventario[this.inventario.length-1]);
+            itemNuevo.appendChild(itemNombre);
+            listaInventario.appendChild(itemNuevo);
         }
 
         console.log(this.inventario);
 
-        let div4 = document.createElement('div');
-        div4.innerHTML = `<div>Encontraste un item, tenes ${this.inventario.length} items</div>`;
-        document.body.appendChild(div4);
+        let itemEncontrado = document.createElement('div');
+        itemEncontrado.id = 'item-encontrado';
+        itemEncontrado.innerHTML = `<div>Encontraste un item, tenes ${this.inventario.length} items</div>`;
+        document.body.appendChild(itemEncontrado);
     }
 
     borrar(){
@@ -163,9 +178,9 @@ console.log(personaje2);
 console.log(typeof(personaje_creado));
 console.log((personaje_creado));
 
-let div1 = document.createElement('div');
-div1.id = 'personaje';
-div1.innerHTML = `<h2>Tu personaje:  </h2>
+let divPersonaje = document.createElement('div');
+divPersonaje.id = 'personaje';
+divPersonaje.innerHTML = `<h2>Tu personaje:  </h2>
                 <ul id="char_info">
                 <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
                 <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
@@ -174,20 +189,14 @@ div1.innerHTML = `<h2>Tu personaje:  </h2>
                 <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
                 <li>Salud: ${sessionStorage.getItem('salud')}</li>
             </ul>`;
-document.body.appendChild(div1);
+document.body.appendChild(divPersonaje);
 
-/* let div2 = document.createElement('div');
-div2.innerHTML = `
+let divInventario = document.createElement('div');
+divInventario.innerHTML = `
             <h2>Inventario: </h2>
-            <ul class="inventario">
-                <li>- ${personaje_creado.inventario[0]}</li>
-                <li>- ${personaje_creado.inventario[1]}</li>
-                <li>- ${personaje_creado.inventario[2]}</li>
-                <li>- ${personaje_creado.inventario[3]}</li>
-                <li>- ${personaje_creado.inventario[4]}</li>
-                <li>- ${personaje_creado.inventario[5]}</li>
-            </ul>`;
-document.body.appendChild(div2); */
+            <ul id=lista-inventario></ul>
+            `;
+document.body.appendChild(divInventario);
 
 
 /* Eventos */
@@ -234,6 +243,11 @@ combatNode.onclick = function (event) {
     
     let saludActual = parseInt(sessionStorage.getItem('salud'));
     if (saludActual <= 0) {
+        let experienciaUp = document.getElementById('div-experiencia');
+        if (experienciaUp != null) {
+            experienciaUp.parentNode.removeChild(experienciaUp);            
+        }
+
         div2.parentNode.removeChild(div2);
         let combateStats = document.getElementById('combate-log');
         combateStats.parentNode.removeChild(combateStats);
@@ -288,7 +302,6 @@ exploreNode.onclick = () => {
 
 let deleteNode = document.getElementById('salir');
 deleteNode.onclick = () => {personaje2.borrar()}
-
 
 
 
