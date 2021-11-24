@@ -192,6 +192,7 @@ divPersonaje.innerHTML = `<h2>Tu personaje:  </h2>
 document.body.appendChild(divPersonaje);
 
 let divInventario = document.createElement('div');
+divInventario.id = 'inventario';
 divInventario.innerHTML = `
             <h2>Inventario: </h2>
             <ul id=lista-inventario></ul>
@@ -257,6 +258,7 @@ combatNode.onclick = function (event) {
         derrota.parentNode.removeChild(derrota);
         
         let fin = document.createElement('h2');
+        fin.id = 'final-partida';
         fin.textContent = sessionStorage.getItem('nombre')+" se debilito! Se acabo la aventura";
         document.body.appendChild(fin);
     }

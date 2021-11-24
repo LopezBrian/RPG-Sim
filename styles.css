@@ -1,7 +1,9 @@
 body{
-    background-color: rgb(127, 35, 149) !important;
-    color: rgb(127, 35, 149);
+    background-color: #661C77 !important;
+    color: black;
+    font-weight: bolder;
     padding: 10px;
+    font-size: 1.5rem;
 }
 
 div{
@@ -11,9 +13,9 @@ div{
     padding: 5px;
     margin: 5px;
 }
-
-label + input{
-    width: 35vw;
+h1{
+    font-size: 3.5rem !important;
+    font-weight: bolder;
 }
 
 h2{
@@ -26,6 +28,26 @@ h2 ul li{
     font-size: 10px;
 }
 
+form{
+    width: 40vw;
+}
+
+label{
+    width: 35vw;
+    font-size: 20px;
+    font-weight: bolder;
+    background-color: #146C43;
+    border-radius: 10px;
+    margin: 5px 0;
+    padding: 5px;
+}
+
+input{
+    width: 35vw;
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
 form button{
     margin: 5px;
 }
@@ -36,4 +58,53 @@ button{
     width: max-content;
     padding: 5px;
     margin: 5px;
+}
+
+.btn-success{
+    background-color: #146C43;
+}
+
+.btn-primary{
+    background-color: #0250C4;
+}
+
+#personaje, #inventario{
+    background-color: #146C43;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+#item-encontrado, #inventario-lleno{
+    font-weight: 600;
+}
+
+#combate-log{
+    background-color: rgb(65, 165, 201);
+    border-radius: 10px;    
+    font-weight: 600;
+}
+
+#div-victoria{
+    background-color: rgb(28, 180, 99);
+    border-radius: 10px;    
+    font-weight: 600;
+}
+
+#div-derrota{
+    background-color: rgb(214, 120, 43);
+    border-radius: 10px;    
+    font-weight: 600;
+}
+
+#subida-nivel{
+    background-color: rgb(235, 231, 16);
+    border-radius: 10px;    
+    font-weight: 600;
+}
+
+#final-partida{
+    background-color: rgb(216, 26, 20);
+    border-radius: 10px;    
+    font-weight: 600;
+    padding: 5px;
 }
