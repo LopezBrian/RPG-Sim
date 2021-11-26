@@ -11,29 +11,29 @@
 <body>
     <h1>Simulador de RPG</h1>
 
-    <form id="stats_inicio" class="d-flex flex-column">
+    <form id="stats-inicio" class="d-flex flex-column">
         <label for="nombre">Nombre: </label>
-        <input type="text" name="nombre" id="nombre" value="0">
+        <input type="text" name="nombre" id="nombre" value="" placeholder="Ingresa un nombre">
 
-        <label for="ataque">Con cuanto ataque queres comenzar? (40-100)</label>
-        <input type="text" name="ataque" id="ataque" value="0">
+        <label for="ataque">Con cuanto ataque queres comenzar?</label>
+        <input type="text" name="ataque" id="ataque" value="" placeholder="Entre 40-100">
 
-        <label for="defensa">Con cuanta defensa queres comenzar? (40-100)</label>
-        <input type="text" name="defensa" id="defensa" value="0">
+        <label for="defensa">Con cuanta defensa queres comenzar?</label>
+        <input type="text" name="defensa" id="defensa" value="" placeholder="Entre 40-100">
 
-        <label for="salud">Con cuanta salud queres comenzar? (40-100)</label>
-        <input type="text" name="salud" id="salud" value="0">
+        <label for="salud">Con cuanta salud queres comenzar?</label>
+        <input type="text" name="salud" id="salud" value="" placeholder="Entre 40-100">
 
         <button type="submit" id="crear" class="btn btn-success">Crear nuevo personaje</button>
     </form>
 
-    <div id="botones-control" >
+    <!-- <div id="botones-control" >
         <button type="button" id="combatir" class="btn btn-primary">Combatir</button>
         <button type="button" id="entrenar" class="btn btn-primary">Entrenar</button>
         <button type="button" id="explorar" class="btn btn-primary">Explorar</button>
-    </div>
+    </div> -->
 
-    <button type="button" id="salir" class="btn-danger">Reset</button>
+    <button type="button" id="reset" class="btn-danger">Reset</button>
     <script src="./main.js"></script>
     
 </body>

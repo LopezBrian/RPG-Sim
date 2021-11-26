@@ -19,10 +19,10 @@ class Personaje{
     }
 
     atacar() {    //Primer método   
-        let ultimoCombate = document.getElementById('combate-log');
+        /* let ultimoCombate = document.getElementById('combate-log');
         if (ultimoCombate != null) {
             ultimoCombate.parentNode.removeChild(ultimoCombate);
-        }
+        } */
 
         this.nivel = parseInt(sessionStorage.getItem('nivel'));
         this.ataque = parseInt(sessionStorage.getItem('ataque'));
@@ -36,9 +36,8 @@ class Personaje{
         let combateStats = document.createElement('div');
         combateStats.id = 'combate-log';
         combateStats.innerHTML = `<h3>Combate actual:\n</h3>
-                                <div>Tu ataque: ${this.ataque}\n</div>
-                                <div>Ataque enemigo: ${ataqueEnemigo}\n</div>
-                                `;
+            <div>Tu ataque: ${this.ataque}\n</div>
+            <div>Ataque enemigo: ${ataqueEnemigo}\n</div>`;
         document.body.appendChild(combateStats);
         
         if(this.ataque>ataqueEnemigo){
@@ -55,15 +54,16 @@ class Personaje{
                 this.nivel += 1;
                 this.ataque += 5;
                 this.defensa += 5;
+                this.salud += 5;
                 this.experiencia = 0;
                 sessionStorage.setItem('nivel', this.nivel);
                 sessionStorage.setItem('ataque', this.ataque);
                 sessionStorage.setItem('defensa', this.defensa);
+                sessionStorage.setItem('salud', this.salud);
                 sessionStorage.setItem('experiencia', this.experiencia);
-                
                 let subidaNivel = document.createElement('div');
-                subidaNivel.id = "subida-nivel";
-                subidaNivel.innerHTML = `<div>Subiste de nivel!\n Nivel +1\nAtaque +5\nDefensa +5</div>`;
+                subidaNivel.id = 'subida-nivel';
+                subidaNivel.innerHTML = `<div>Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`;
                 document.body.appendChild(subidaNivel);
             }
         }else{
@@ -101,14 +101,16 @@ class Personaje{
             this.nivel += 1;
             this.ataque += 5;
             this.defensa += 5;
+            this.salud += 5;
             this.experiencia = 0;
             sessionStorage.setItem('nivel', this.nivel);
             sessionStorage.setItem('ataque', this.ataque);
             sessionStorage.setItem('defensa', this.defensa);
+            sessionStorage.setItem('salud', this.salud);
             sessionStorage.setItem('experiencia', this.experiencia);
             let subidaNivel = document.createElement('div');
             subidaNivel.id = 'subida-nivel';
-            subidaNivel.innerHTML = `<div>Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5</div>`;
+            subidaNivel.innerHTML = `<div>Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`;
             document.body.appendChild(subidaNivel);
         }        
     }
@@ -149,21 +151,82 @@ class Personaje{
 
         console.log(this.inventario);
 
-        /* let listaInventario = document.getElementById('lista-inventario'); */
         let itemEncontrado = document.createElement('div');
         itemEncontrado.id = 'item-encontrado';
         itemEncontrado.innerHTML = `<div>Encontraste un item, tenes ${this.inventario.length} items</div>`;
         listaInventario.appendChild(itemEncontrado);
-    }
+    }    
+}
+function reset(){
+    limpiarLog();
+    let final = document.getElementById('final-partida');
+    final.parentNode.removeChild(final);
+    sessionStorage.clear();
+}
 
-    borrar(){
-        sessionStorage.clear();
+function borrarCombate() {
+    let combateStats = document.getElementById('combate-log');
+    let victoria = document.getElementById('div-victoria');
+    let derrota = document.getElementById('div-derrota');
+    if (combateStats != null) {
+        combateStats.parentNode.removeChild(combateStats);
     }
     
+    if (victoria != null) {
+        victoria.parentNode.removeChild(victoria);
+    }
+    
+    if (derrota != null) {
+        derrota.parentNode.removeChild(derrota);
+    }
 }
+
+function borrarExp() {
+    let subidaNivel = document.getElementById('subida-nivel');
+    let experienciaUp = document.getElementById('div-experiencia');
+
+    if (subidaNivel != null) {
+        subidaNivel.parentNode.removeChild(subidaNivel);
+    }
+    
+    if (experienciaUp != null) {
+        experienciaUp.parentNode.removeChild(experienciaUp);
+    }
+}
+
+function limpiarLog() {
+    let divPersonaje = document.getElementById('personaje');
+    let inventario = document.getElementById('inventario');
+    let botones = document.getElementById('botones-control');    
+
+    divPersonaje.parentNode.removeChild(divPersonaje);
+    inventario.parentNode.removeChild(inventario);
+    botones.parentNode.removeChild(botones);    
+    borrarCombate();
+    borrarExp(); 
+}
+
+function actualizarStats() {
+    let statsAnteriores = document.getElementById('personaje');
+    statsAnteriores.parentNode.removeChild(statsAnteriores);
+
+    let statsNuevos = document.createElement('div');
+    statsNuevos.id = 'personaje';
+    statsNuevos.innerHTML = `<h2>Tu personaje:  </h2>
+        <ul id="char_info">
+        <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
+        <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
+        <li>Experiencia: ${sessionStorage.getItem('experiencia')}</li>
+        <li>Ataque: ${sessionStorage.getItem('ataque')}</li>
+        <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
+        <li>Salud: ${sessionStorage.getItem('salud')}</li>
+        </ul>`;
+    document.body.appendChild(statsNuevos);  
+}
+
 /* Inicio de lo que se imprime en pantalla */
-document.getElementById('stats_inicio').onsubmit = function(event){
-    /* event.preventDefault(); */
+document.getElementById('stats-inicio').onsubmit = function(event){
+    
     let nombre = document.getElementById("nombre").value;
     let ataque = document.getElementById("ataque").value;
     let defensa = document.getElementById('defensa').value;
@@ -184,129 +247,78 @@ console.log((personaje_creado));
 let divPersonaje = document.createElement('div');
 divPersonaje.id = 'personaje';
 divPersonaje.innerHTML = `<h2>Tu personaje:  </h2>
-                <ul id="char_info">
-                <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
-                <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
-                <li>Experiencia: ${sessionStorage.getItem('experiencia')}</li>
-                <li>Ataque: ${sessionStorage.getItem('ataque')}</li>
-                <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
-                <li>Salud: ${sessionStorage.getItem('salud')}</li>
-            </ul>`;
+    <ul id="char_info">
+    <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
+    <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
+    <li>Experiencia: ${sessionStorage.getItem('experiencia')}</li>
+    <li>Ataque: ${sessionStorage.getItem('ataque')}</li>
+    <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
+    <li>Salud: ${sessionStorage.getItem('salud')}</li>
+    </ul>`;
 document.body.appendChild(divPersonaje);
 
 let divInventario = document.createElement('div');
 divInventario.id = 'inventario';
-divInventario.innerHTML = `
-            <h2>Inventario: </h2>
-            <ul id=lista-inventario></ul>
-            `;
+divInventario.innerHTML = `<h2>Inventario: </h2>
+    <ul id=lista-inventario></ul>`;
 document.body.appendChild(divInventario);
+
+if (divPersonaje != null) {
+    let botones = document.createElement('div');
+    botones.id = 'botones-control';
+    botones.innerHTML = `<button type="button" id="combatir" class="btn btn-primary">Combatir</button>
+        <button type="button" id="entrenar" class="btn btn-primary">Entrenar</button>
+        <button type="button" id="explorar" class="btn btn-primary">Explorar</button>`;
+    document.body.appendChild(botones);
+}
 
 
 /* Eventos */
 let combatNode = document.getElementById('combatir');
 combatNode.onclick = function (event) {
-    let victoria = document.getElementById('div-victoria');
-    let derrota = document.getElementById('div-derrota');
-    let subidaNivel = document.getElementById('subida-nivel');
-
-    console.log(victoria);
-    console.log(derrota);
-    console.log(subidaNivel);
-
-    if (victoria != null) {
-        victoria.parentNode.removeChild(victoria);
-    }
-
-    if (derrota != null) {
-        derrota.parentNode.removeChild(derrota);
-    }
-
-    if (subidaNivel != null) {
-        subidaNivel.parentNode.removeChild(subidaNivel);
-    }
+    borrarCombate();
+    borrarExp();
 
     personaje2.atacar();
     console.log(personaje2);
 
-    let div1 = document.getElementById('personaje');
-    div1.parentNode.removeChild(div1);
-
-    let div2 = document.createElement('div');
-    div2.id = 'personaje';
-    div2.innerHTML = `<h2>Tu personaje:  </h2>
-                    <ul id="char_info">
-                    <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
-                    <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
-                    <li>Experiencia: ${sessionStorage.getItem('experiencia')}</li>
-                    <li>Ataque: ${sessionStorage.getItem('ataque')}</li>
-                    <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
-                    <li>Salud: ${sessionStorage.getItem('salud')}</li>
-                    </ul>`;
-    document.body.appendChild(div2);    
+    actualizarStats();
     
     let saludActual = parseInt(sessionStorage.getItem('salud'));
     if (saludActual <= 0) {
         let experienciaUp = document.getElementById('div-experiencia');
         if (experienciaUp != null) {
             experienciaUp.parentNode.removeChild(experienciaUp);            
-        }
-
-        div2.parentNode.removeChild(div2);
-        let combateStats = document.getElementById('combate-log');
-        combateStats.parentNode.removeChild(combateStats);
-        let botones = document.getElementById('botones-control');
-        botones.parentNode.removeChild(botones);
-        let derrota = document.getElementById('div-derrota');
-        derrota.parentNode.removeChild(derrota);
+        }    
         
         let fin = document.createElement('h2');
         fin.id = 'final-partida';
         fin.textContent = sessionStorage.getItem('nombre')+" se debilito! Se acabo la aventura";
         document.body.appendChild(fin);
+        limpiarLog();
     }
 }
 let trainNode = document.getElementById('entrenar');
 trainNode.onclick = () => {
-    let experienciaUp = document.getElementById('div-experiencia');
-    let subidaNivel = document.getElementById('subida-nivel');
-    
-    if (subidaNivel != null) {
-        subidaNivel.parentNode.removeChild(subidaNivel);
-    }
-
-    if (experienciaUp != null) {
-        experienciaUp.parentNode.removeChild(experienciaUp);
-    }
+    borrarExp();
+    borrarCombate();
 
     personaje2.expUp()
     console.log(personaje2);
 
-    let div1 = document.getElementById('personaje');
-    div1.parentNode.removeChild(div1);
-
-    let div2 = document.createElement('div');
-    div2.id = 'personaje';
-    div2.innerHTML = `<h2>Tu personaje:  </h2>
-                    <ul id="char_info">
-                    <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
-                    <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
-                    <li>Experiencia: ${sessionStorage.getItem('experiencia')}</li>
-                    <li>Ataque: ${sessionStorage.getItem('ataque')}</li>
-                    <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
-                    <li>Salud: ${sessionStorage.getItem('salud')}</li>
-                    </ul>`;
-    document.body.appendChild(div2);
+    actualizarStats();
 }
 
 let exploreNode = document.getElementById('explorar');
 exploreNode.onclick = () => {
+    borrarCombate();
+    borrarExp();
     personaje2.explorar()
     console.log(personaje2);
 }
 
-let deleteNode = document.getElementById('salir');
-deleteNode.onclick = () => {personaje2.borrar()}
+let deleteNode = document.getElementById('reset');
+deleteNode.onclick = () => {reset()}
 
 
 

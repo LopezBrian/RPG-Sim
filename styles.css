@@ -68,6 +68,10 @@ button{
     background-color: #0250C4;
 }
 
+/* #botones-control{
+    display: none;
+} */
+
 #personaje, #inventario{
     background-color: #146C43;
     border-radius: 10px;
