@@ -1,4 +1,6 @@
-/* Estructura de la clase */
+$("document").ready(() => {
+
+        /* Estructura de la clase */
 class Personaje{
     constructor(nombre, ataque, defensa, salud){    //Constructor
         this.nombre = nombre;
@@ -9,13 +11,13 @@ class Personaje{
         this.nivel = 1;
         this.inventario = [];
 
-        sessionStorage.setItem('nombre', this.nombre);
-        sessionStorage.setItem('ataque', this.ataque);
-        sessionStorage.setItem('defensa', this.defensa);
-        sessionStorage.setItem('salud', this.salud);
-        sessionStorage.setItem('experiencia', this.experiencia);
-        sessionStorage.setItem('nivel', this.nivel);
-        sessionStorage.setItem('inventario', JSON.stringify(this.inventario));
+        localStorage.setItem('nombre', this.nombre);
+        localStorage.setItem('ataque', this.ataque);
+        localStorage.setItem('defensa', this.defensa);
+        localStorage.setItem('salud', this.salud);
+        localStorage.setItem('experiencia', this.experiencia);
+        localStorage.setItem('nivel', this.nivel);
+        localStorage.setItem('inventario', JSON.stringify(this.inventario));
     }
 
     atacar() {    //Primer método   
@@ -24,31 +26,25 @@ class Personaje{
             ultimoCombate.parentNode.removeChild(ultimoCombate);
         } */
 
-        this.nivel = parseInt(sessionStorage.getItem('nivel'));
-        this.ataque = parseInt(sessionStorage.getItem('ataque'));
-        this.defensa = parseInt(sessionStorage.getItem('ataque'));
-        this.salud = parseInt(sessionStorage.getItem('salud'));
+        this.nivel = parseInt(localStorage.getItem('nivel'));
+        this.ataque = parseInt(localStorage.getItem('ataque'));
+        this.defensa = parseInt(localStorage.getItem('ataque'));
+        this.salud = parseInt(localStorage.getItem('salud'));
         
         let dañoMaximo = this.ataque + 20;
         let dañoMinimo = this.ataque - 20;
         let ataqueEnemigo = Math.floor(Math.random() * (dañoMaximo - dañoMinimo)) + dañoMinimo;
 
-        let combateStats = document.createElement('div');
-        combateStats.id = 'combate-log';
-        combateStats.innerHTML = `<h3>Combate actual:\n</h3>
-            <div>Tu ataque: ${this.ataque}\n</div>
-            <div>Ataque enemigo: ${ataqueEnemigo}\n</div>`;
-        document.body.appendChild(combateStats);
+        $("#botones-control").append(`<div id="combate-log"><h3>Combate actual:\n</h3>
+        <div>Tu ataque: ${this.ataque}\n</div>
+        <div>Ataque enemigo: ${ataqueEnemigo}\n</div></div>`);
         
         if(this.ataque>ataqueEnemigo){
-            this.experiencia = parseInt(sessionStorage.getItem('experiencia'));
+            this.experiencia = parseInt(localStorage.getItem('experiencia'));
             this.experiencia += 30;
-            sessionStorage.setItem('experiencia', this.experiencia);
+            localStorage.setItem('experiencia', this.experiencia);
             
-            let victoria = document.createElement('div');
-            victoria.id = "div-victoria";
-            victoria.innerHTML = `<div>Ganaste el combate! Experiencia +30</div>`;
-            document.body.appendChild(victoria);
+            $("#botones-control").append(`<div id="div-victoria">Ganaste el combate! Experiencia +30</div>`);
             
             if (this.experiencia>=50) {
                 this.nivel += 1;
@@ -56,46 +52,40 @@ class Personaje{
                 this.defensa += 5;
                 this.salud += 5;
                 this.experiencia = 0;
-                sessionStorage.setItem('nivel', this.nivel);
-                sessionStorage.setItem('ataque', this.ataque);
-                sessionStorage.setItem('defensa', this.defensa);
-                sessionStorage.setItem('salud', this.salud);
-                sessionStorage.setItem('experiencia', this.experiencia);
-                let subidaNivel = document.createElement('div');
-                subidaNivel.id = 'subida-nivel';
-                subidaNivel.innerHTML = `<div>Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`;
-                document.body.appendChild(subidaNivel);
+                localStorage.setItem('nivel', this.nivel);
+                localStorage.setItem('ataque', this.ataque);
+                localStorage.setItem('defensa', this.defensa);
+                localStorage.setItem('salud', this.salud);
+                localStorage.setItem('experiencia', this.experiencia);
+
+                $("#botones-control").append(`<div id="subida-nivel">Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`);
             }
         }else{
             let dañoSalud = ataqueEnemigo-this.defensa;
-            sessionStorage.setItem('dañoSalud', dañoSalud);
+            localStorage.setItem('dañoSalud', dañoSalud);
             
             if(dañoSalud>=0){
                 this.salud -= dañoSalud;
-                sessionStorage.setItem('salud', this.salud);
+                localStorage.setItem('salud', this.salud);
             }else{
                 this.salud -= dañoSalud*(-1);
-                sessionStorage.setItem('salud', this.salud);
+                localStorage.setItem('salud', this.salud);
             }
-            let derrota = document.createElement('div');
-            derrota.id = "div-derrota";    
-            derrota.innerHTML = `<div>No ganaste el combate!\nRecibiste ${dañoSalud} de daño\nTu salud restante es: ${this.salud}</div>`;
-            document.body.appendChild(derrota);
+
+            $("#botones-control").append(`<div id="div-derrota">No ganaste el combate!\nRecibiste ${dañoSalud} de daño\nTu salud restante es: ${this.salud}</div>`);
         }   
     }
 
     expUp() {   //Segundo método
-        this.experiencia = parseInt(sessionStorage.getItem('experiencia'));
-        this.nivel = parseInt(sessionStorage.getItem('nivel'));
-        this.ataque = parseInt(sessionStorage.getItem('ataque'));
-        this.defensa = parseInt(sessionStorage.getItem('ataque'));
+        this.experiencia = parseInt(localStorage.getItem('experiencia'));
+        this.nivel = parseInt(localStorage.getItem('nivel'));
+        this.ataque = parseInt(localStorage.getItem('ataque'));
+        this.defensa = parseInt(localStorage.getItem('ataque'));
+        this.salud = parseInt(localStorage.getItem('salud'));
         this.experiencia += 10;
-        sessionStorage.setItem('experiencia', this.experiencia);
+        localStorage.setItem('experiencia', this.experiencia);
 
-        let subirExp = document.createElement('div');
-        subirExp.id = "div-experiencia";
-        subirExp.innerHTML = `<div>Entrenaste! Experiencia +10</div>`;
-        document.body.appendChild(subirExp);
+        $("#botones-control").append(`<div id="div-experiencia">Entrenaste! Experiencia +10</div>`);
 
         if (this.experiencia>=50) {
             this.nivel += 1;
@@ -103,15 +93,13 @@ class Personaje{
             this.defensa += 5;
             this.salud += 5;
             this.experiencia = 0;
-            sessionStorage.setItem('nivel', this.nivel);
-            sessionStorage.setItem('ataque', this.ataque);
-            sessionStorage.setItem('defensa', this.defensa);
-            sessionStorage.setItem('salud', this.salud);
-            sessionStorage.setItem('experiencia', this.experiencia);
-            let subidaNivel = document.createElement('div');
-            subidaNivel.id = 'subida-nivel';
-            subidaNivel.innerHTML = `<div>Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`;
-            document.body.appendChild(subidaNivel);
+            localStorage.setItem('nivel', this.nivel);
+            localStorage.setItem('ataque', this.ataque);
+            localStorage.setItem('defensa', this.defensa);
+            localStorage.setItem('salud', this.salud);
+            localStorage.setItem('experiencia', this.experiencia);
+
+            $("#botones-control").append(`<div id="subida-nivel">Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`);
         }        
     }
 
@@ -120,207 +108,194 @@ class Personaje{
         let item_index = Math.floor(Math.random() * items_array.length);
         
         console.log(this.inventario);
-        
-        let ultimoItem = document.getElementById('item-encontrado');
-        let ultimoInventario = document.getElementById('inventario-lleno');
-        let listaInventario = document.getElementById('lista-inventario');
 
-
-        if (ultimoItem != null) {
-            ultimoItem.parentNode.removeChild(ultimoItem);
+        if ($("#item-encontrado") != null) {
+            $("#item-encontrado").remove();
         }
-
-        if (ultimoInventario != null) {
-            ultimoInventario.parentNode.removeChild(ultimoInventario);
+        if ($("#inventario-lleno") != null) {
+            $("#inventario-lleno").remove();
         }
-
         if (this.inventario.length>=6) {
-            let inventarioLleno = document.createElement('div');
-            inventarioLleno.id = 'inventario-lleno';
-            inventarioLleno.innerHTML = `<div>Tu inventario esta lleno!</div>`;
-            listaInventario.appendChild(inventarioLleno);
+            $("#lista-inventario").append(`<div id="inventario-lleno">Tu inventario esta lleno!</div>`);
+
         }else{
             this.inventario.push(items_array[item_index]);
-            sessionStorage.setItem('inventario', this.inventario);
-            let listaInventario = document.getElementById('lista-inventario');
-            let itemNuevo = document.createElement('li');
-            let itemNombre = document.createTextNode(this.inventario[this.inventario.length-1]);
-            itemNuevo.appendChild(itemNombre);
-            listaInventario.appendChild(itemNuevo);
-        }
+            localStorage.setItem('inventario', this.inventario);
 
+            $("#lista-inventario").append(`<li>${this.inventario[this.inventario.length-1]}`);
+        }
         console.log(this.inventario);
 
-        let itemEncontrado = document.createElement('div');
-        itemEncontrado.id = 'item-encontrado';
-        itemEncontrado.innerHTML = `<div>Encontraste un item, tenes ${this.inventario.length} items</div>`;
-        listaInventario.appendChild(itemEncontrado);
+        $("#lista-inventario").append(`<div id="item-encontrado">Encontraste un item, tenes ${this.inventario.length} items</div>`);
     }    
 }
 function reset(){
+    localStorage.clear();
     limpiarLog();
-    let final = document.getElementById('final-partida');
-    final.parentNode.removeChild(final);
-    sessionStorage.clear();
+
+    $("#final-partida").remove();
+
+    $("#stats-inicio").show();
 }
 
 function borrarCombate() {
-    let combateStats = document.getElementById('combate-log');
-    let victoria = document.getElementById('div-victoria');
-    let derrota = document.getElementById('div-derrota');
-    if (combateStats != null) {
-        combateStats.parentNode.removeChild(combateStats);
-    }
-    
-    if (victoria != null) {
-        victoria.parentNode.removeChild(victoria);
-    }
-    
-    if (derrota != null) {
-        derrota.parentNode.removeChild(derrota);
+    if ($("#combate-log") != null) {
+        $("#combate-log").remove();
+    }    
+    if ($("#div-victoria") != null) {
+        $("#div-victoria").remove();
+    }    
+    if ($("#div-derrota") != null) {
+        $("#div-derrota").remove();
     }
 }
 
 function borrarExp() {
-    let subidaNivel = document.getElementById('subida-nivel');
-    let experienciaUp = document.getElementById('div-experiencia');
-
-    if (subidaNivel != null) {
-        subidaNivel.parentNode.removeChild(subidaNivel);
-    }
-    
-    if (experienciaUp != null) {
-        experienciaUp.parentNode.removeChild(experienciaUp);
+    if ($("#subida-nivel") != null) {
+        $("#subida-nivel").remove();
+    }    
+    if ($("#div-experiencia") != null) {
+        $("#div-experiencia").remove();
     }
 }
 
 function limpiarLog() {
-    let divPersonaje = document.getElementById('personaje');
-    let inventario = document.getElementById('inventario');
-    let botones = document.getElementById('botones-control');    
-
-    divPersonaje.parentNode.removeChild(divPersonaje);
-    inventario.parentNode.removeChild(inventario);
-    botones.parentNode.removeChild(botones);    
+    $("#personaje").remove();
+    $("#inventario").remove();
+    $("#botones-control").remove();
     borrarCombate();
     borrarExp(); 
 }
 
 function actualizarStats() {
-    let statsAnteriores = document.getElementById('personaje');
-    statsAnteriores.parentNode.removeChild(statsAnteriores);
+    $("#personaje").remove();
 
-    let statsNuevos = document.createElement('div');
-    statsNuevos.id = 'personaje';
-    statsNuevos.innerHTML = `<h2>Tu personaje:  </h2>
-        <ul id="char_info">
-        <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
-        <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
-        <li>Experiencia: ${sessionStorage.getItem('experiencia')}</li>
-        <li>Ataque: ${sessionStorage.getItem('ataque')}</li>
-        <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
-        <li>Salud: ${sessionStorage.getItem('salud')}</li>
-        </ul>`;
-    document.body.appendChild(statsNuevos);  
+    $("#marco").append(`<div id="personaje"><h2>Tu personaje:  </h2>
+    <ul id="char_info">
+    <li>Nombre: ${localStorage.getItem('nombre')}</li>
+    <li>Nivel: ${localStorage.getItem('nivel')}</li>
+    <li>Experiencia: ${localStorage.getItem('experiencia')}</li>
+    <li>Ataque: ${localStorage.getItem('ataque')}</li>
+    <li>Defensa: ${localStorage.getItem('defensa')}</li>
+    <li>Salud: ${localStorage.getItem('salud')}</li>
+    </ul></div>`);
 }
 
 /* Inicio de lo que se imprime en pantalla */
-document.getElementById('stats-inicio').onsubmit = function(event){
-    
-    let nombre = document.getElementById("nombre").value;
-    let ataque = document.getElementById("ataque").value;
-    let defensa = document.getElementById('defensa').value;
-    let salud = document.getElementById('salud').value;
-
-    let personaje = new Personaje(nombre, ataque, defensa, salud);
-    
+$('#stats-inicio').submit(function(e){
+    /* event.preventDefault(); */
+    let nombre = $("#nombre").val();
+    let ataque = $("#ataque").val();
+    let defensa = $("#defensa").val();
+    let salud = $("#salud").val();
+    let personaje = new Personaje(nombre, ataque, defensa, salud);    
     console.log(typeof(personaje));
-    sessionStorage.setItem('personaje', JSON.stringify(personaje));
-};
+    localStorage.setItem('personaje', JSON.stringify(personaje));
+    
+    /* $("#stats-inicio").hide(); */
+});
 
-let personaje_creado = JSON.parse(sessionStorage.getItem('personaje'));
+$('body').append(`<div id="marco"></div>`);
+
+let personaje_creado = JSON.parse(localStorage.getItem('personaje'));
 let personaje2 = new Personaje (personaje_creado.nombre, personaje_creado.ataque, personaje_creado.defensa, personaje_creado.salud);
 console.log(personaje2);
 console.log(typeof(personaje_creado));
 console.log((personaje_creado));
 
-let divPersonaje = document.createElement('div');
-divPersonaje.id = 'personaje';
-divPersonaje.innerHTML = `<h2>Tu personaje:  </h2>
+
+if ($("#marco") != null) {
+    $("#marco").append(`<div id="personaje"><h2>Tu personaje:  </h2>     
     <ul id="char_info">
-    <li>Nombre: ${sessionStorage.getItem('nombre')}</li>
-    <li>Nivel: ${sessionStorage.getItem('nivel')}</li>
-    <li>Experiencia: ${sessionStorage.getItem('experiencia')}</li>
-    <li>Ataque: ${sessionStorage.getItem('ataque')}</li>
-    <li>Defensa: ${sessionStorage.getItem('defensa')}</li>
-    <li>Salud: ${sessionStorage.getItem('salud')}</li>
-    </ul>`;
-document.body.appendChild(divPersonaje);
+    <li>Nombre: ${localStorage.getItem('nombre')}</li>
+    <li>Nivel: ${localStorage.getItem('nivel')}</li>
+    <li>Experiencia: ${localStorage.getItem('experiencia')}</li>
+    <li>Ataque: ${localStorage.getItem('ataque')}</li>
+    <li>Defensa: ${localStorage.getItem('defensa')}</li>
+    <li>Salud: ${localStorage.getItem('salud')}</li>
+    </ul></div>`);
 
-let divInventario = document.createElement('div');
-divInventario.id = 'inventario';
-divInventario.innerHTML = `<h2>Inventario: </h2>
-    <ul id=lista-inventario></ul>`;
-document.body.appendChild(divInventario);
-
-if (divPersonaje != null) {
-    let botones = document.createElement('div');
-    botones.id = 'botones-control';
-    botones.innerHTML = `<button type="button" id="combatir" class="btn btn-primary">Combatir</button>
-        <button type="button" id="entrenar" class="btn btn-primary">Entrenar</button>
-        <button type="button" id="explorar" class="btn btn-primary">Explorar</button>`;
-    document.body.appendChild(botones);
+    
+    $("#marco").append(`<div id="inventario"><h2>Inventario: </h2>
+    <ul id=lista-inventario></ul></div>`);      //CON JQUERY   
+    
+    $("#marco").prepend(`<div id="botones-control"><button type="button" id="combatir" class="btn btn-primary">Combatir</button>
+    <button type="button" id="entrenar" class="btn btn-primary">Entrenar</button>
+    <button type="button" id="explorar" class="btn btn-primary">Explorar</button></div>`);    
+    
+    actualizarStats();
 }
+
+
+
+/*     if ($("personaje") != null && personaje2 != null) {
+        $('body').append(`<div id="personaje"><h2>Tu personaje:  </h2>
+        <ul id="char_info">
+        <li>Nombre: ${localStorage.getItem('nombre')}</li>
+        <li>Nivel: ${localStorage.getItem('nivel')}</li>
+        <li>Experiencia: ${localStorage.getItem('experiencia')}</li>
+        <li>Ataque: ${localStorage.getItem('ataque')}</li>
+        <li>Defensa: ${localStorage.getItem('defensa')}</li>
+        <li>Salud: ${localStorage.getItem('salud')}</li>
+        </ul></div>`);
+    } */
+
+
+/* if ($("#personaje") != null) {
+    $("body").append(`<div id="botones-control"><button type="button" id="combatir" class="btn btn-primary">Combatir</button>
+    <button type="button" id="entrenar" class="btn btn-primary">Entrenar</button>
+    <button type="button" id="explorar" class="btn btn-primary">Explorar</button></div>`);      //CON JQUERY
+} */
+
+/* $("body").append(`<div id="personaje"><h2>Tu personaje:  </h2>     
+<ul id="char_info">
+<li>Nombre: ${localStorage.getItem('nombre')}</li>
+<li>Nivel: ${localStorage.getItem('nivel')}</li>
+<li>Experiencia: ${localStorage.getItem('experiencia')}</li>
+<li>Ataque: ${localStorage.getItem('ataque')}</li>
+<li>Defensa: ${localStorage.getItem('defensa')}</li>
+<li>Salud: ${localStorage.getItem('salud')}</li>
+</ul></div>`); */      //CON JQUERY
 
 
 /* Eventos */
-let combatNode = document.getElementById('combatir');
-combatNode.onclick = function (event) {
+$("#combatir").click(function (event) {
+    /* preventDefault(); */
     borrarCombate();
     borrarExp();
-
     personaje2.atacar();
     console.log(personaje2);
-
+    let saludActual = parseInt(localStorage.getItem('salud'));
     actualizarStats();
-    
-    let saludActual = parseInt(sessionStorage.getItem('salud'));
+
     if (saludActual <= 0) {
-        let experienciaUp = document.getElementById('div-experiencia');
-        if (experienciaUp != null) {
-            experienciaUp.parentNode.removeChild(experienciaUp);            
-        }    
-        
-        let fin = document.createElement('h2');
-        fin.id = 'final-partida';
-        fin.textContent = sessionStorage.getItem('nombre')+" se debilito! Se acabo la aventura";
-        document.body.appendChild(fin);
+        if ($("#div-experiencia") != null) {
+            $("#div-experiencia").remove();
+        }
         limpiarLog();
+        $("body").append(`<h2 id="final-partida">${localStorage.getItem('nombre')} se debilito! Se acabo la aventura</h2>`);
     }
-}
-let trainNode = document.getElementById('entrenar');
-trainNode.onclick = () => {
+})
+
+$("#entrenar").click(function (event) {
+    /* preventDefault(); */
     borrarExp();
     borrarCombate();
-
     personaje2.expUp()
     console.log(personaje2);
-
     actualizarStats();
-}
+})
 
-let exploreNode = document.getElementById('explorar');
-exploreNode.onclick = () => {
+$("#explorar").click(function (event) {
+    /* preventDefault(); */
     borrarCombate();
     borrarExp();
     personaje2.explorar()
     console.log(personaje2);
-}
+    actualizarStats();
+})
 
-let deleteNode = document.getElementById('reset');
-deleteNode.onclick = () => {reset()}
-
-
+$("#reset").click(() => {reset()});
 
 /* Validar input */
 /* let ataque = null;
@@ -329,3 +304,6 @@ let defensa = null;
 while ( !(Number.isInteger(defensa)) || ((defensa<39)||(defensa>100)) || (defensa=="")) {defensa = Number(prompt("Con cuanta defensa queres comenzar? (40-100)"));}
 let salud = null;
 while ( !(Number.isInteger(salud)) || ((salud<39)||(salud>100)) || (salud=="")) {salud = Number(prompt("Con cuanta salud queres comenzar? (40-100)"));} */
+
+
+})

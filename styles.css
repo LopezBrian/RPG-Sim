@@ -3,19 +3,12 @@ body{
     color: black;
     font-weight: bolder;
     padding: 10px;
-    font-size: 1.5rem;
+    /* font-size: 15px; */
 }
 
-div{
-    border: 2px, solid;
-    border-radius: 2px;
-    width: max-content;
-    padding: 5px;
-    margin: 5px;
-}
 h1{
-    font-size: 3.5rem !important;
-    font-weight: bolder;
+/*     font-size: 3.5rem !important;
+ */    font-weight: bolder;
 }
 
 h2{
@@ -25,8 +18,8 @@ h2{
 
 h2 ul li{
     font-weight: bolder;
-    font-size: 10px;
-}
+/*     font-size: 10px;
+ */}
 
 form{
     width: 40vw;
@@ -34,7 +27,7 @@ form{
 
 label{
     width: 35vw;
-    font-size: 18px;
+/*     font-size: 18px; */
     font-weight: bolder;
     background-color: #146C43;
     border-radius: 10px;
@@ -44,7 +37,7 @@ label{
 
 input{
     width: 35vw;
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
     font-weight: bolder;
 }
 
@@ -53,7 +46,7 @@ form button{
 }
 
 button{
-    border: 2px, solid;
+    border: 2px solid;
     border-radius: 2px;
     width: max-content;
     padding: 5px;
@@ -61,22 +54,33 @@ button{
 }
 
 .btn-success{
-    background-color: #146C43;
+    background-color: #146C43;    
+    margin: 5px;
 }
 
 .btn-primary{
     background-color: #0250C4;
+    margin: 5px;
 }
 
-/* #botones-control{
-    display: none;
-} */
-
-#personaje, #inventario{
+#personaje, #inventario{    
+    border: 2px solid;
     background-color: #146C43;
+}
+
+div{
     border-radius: 10px;
     font-weight: 600;
+    width: max-content;
+    padding: 5px;
+    margin: 5px;
 }
+
+#stats-inicio{
+    display: flex;
+    flex-direction: column;
+}
+
 
 #item-encontrado, #inventario-lleno{
     font-weight: 600;
@@ -84,25 +88,25 @@ button{
 
 #combate-log{
     background-color: rgb(65, 165, 201);
-    border-radius: 10px;    
+    border-radius: 10px;
     font-weight: 600;
 }
 
 #div-victoria{
     background-color: rgb(28, 180, 99);
-    border-radius: 10px;    
+    border-radius: 10px;
     font-weight: 600;
 }
 
 #div-derrota{
     background-color: rgb(214, 120, 43);
-    border-radius: 10px;    
+    border-radius: 10px;
     font-weight: 600;
 }
 
 #subida-nivel, #div-experiencia, #item-encontrado {
     background-color: rgb(235, 231, 16);
-    border-radius: 10px;    
+    border-radius: 10px;
     font-weight: 600;
 }
 
@@ -114,7 +118,8 @@ button{
 
 #final-partida{
     background-color: rgb(216, 26, 20);
-    border-radius: 10px;    
+    border-radius: 10px;
     font-weight: 600;
     padding: 5px;
+    margin: 5px;
 }
