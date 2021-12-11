@@ -9,6 +9,7 @@ body{
 h1{
 /*     font-size: 3.5rem !important;
  */    font-weight: bolder;
+ width: max-content;
 }
 
 h2{
@@ -22,7 +23,8 @@ h2 ul li{
  */}
 
 form{
-    width: 40vw;
+    /* width: 40vw; */
+    width: max-content;
 }
 
 label{
@@ -55,7 +57,7 @@ button{
 
 .btn-success{
     background-color: #146C43;    
-    margin: 5px;
+    margin: 10px auto;
 }
 
 .btn-primary{
@@ -122,4 +124,10 @@ div{
     font-weight: 600;
     padding: 5px;
     margin: 5px;
+}
+
+#marco, #botones-control{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }

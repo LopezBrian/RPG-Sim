@@ -219,9 +219,9 @@ if ($("#marco") != null) {
     $("#marco").append(`<div id="inventario"><h2>Inventario: </h2>
     <ul id=lista-inventario></ul></div>`);      //CON JQUERY   
     
-    $("#marco").prepend(`<div id="botones-control"><button type="button" id="combatir" class="btn btn-primary">Combatir</button>
+    $("#marco").prepend(`<div id="botones-control"><div id="botones"><button type="button" id="combatir" class="btn btn-primary">Combatir</button>
     <button type="button" id="entrenar" class="btn btn-primary">Entrenar</button>
-    <button type="button" id="explorar" class="btn btn-primary">Explorar</button></div>`);    
+    <button type="button" id="explorar" class="btn btn-primary">Explorar</button></div></div>`);    
     
     actualizarStats();
 }
