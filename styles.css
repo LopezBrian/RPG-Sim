@@ -68,13 +68,26 @@ button{
 #personaje, #inventario{    
     border: 2px solid;
     background-color: #146C43;
+    padding: 5px;
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#char_info{
+    width: 75%;
+}
+
+
+#lista-inventario{
+    width: 90%;
 }
 
 div{
     border-radius: 10px;
     font-weight: 600;
     width: max-content;
-    padding: 5px;
     margin: 5px;
 }
 
@@ -83,47 +96,37 @@ div{
     flex-direction: column;
 }
 
-
-#item-encontrado, #inventario-lleno{
-    font-weight: 600;
-}
-
-#combate-log{
-    background-color: rgb(65, 165, 201);
+#div-victoria, #div-derrota, #combate-log, #item-encontrado, #inventario-lleno, #subida-nivel, #div-experiencia, #final-partida{
     border-radius: 10px;
     font-weight: 600;
+    padding: 5px;
+    text-align: center;
+    width: 75%;
 }
 
 #div-victoria{
     background-color: rgb(28, 180, 99);
-    border-radius: 10px;
-    font-weight: 600;
 }
 
 #div-derrota{
     background-color: rgb(214, 120, 43);
-    border-radius: 10px;
-    font-weight: 600;
+}
+
+#combate-log{
+    background-color: rgb(65, 165, 201);
 }
 
 #subida-nivel, #div-experiencia, #item-encontrado {
     background-color: rgb(235, 231, 16);
-    border-radius: 10px;
-    font-weight: 600;
+    width: 75%;
 }
 
 #inventario-lleno {
     background-color: rgb(216, 26, 20);
-    border-radius: 10px;    
-    font-weight: 600;
 }
 
 #final-partida{
     background-color: rgb(216, 26, 20);
-    border-radius: 10px;
-    font-weight: 600;
-    padding: 5px;
-    margin: 5px;
 }
 
 #marco, #botones-control{

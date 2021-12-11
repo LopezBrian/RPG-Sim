@@ -35,16 +35,18 @@ class Personaje{
         let dañoMinimo = this.ataque - 20;
         let ataqueEnemigo = Math.floor(Math.random() * (dañoMaximo - dañoMinimo)) + dañoMinimo;
 
-        $("#botones-control").append(`<div id="combate-log"><h3>Combate actual:\n</h3>
+        $("#botones-control").append(`<div id="combate-log" style="display: none"><h3>Combate actual:\n</h3>
         <div>Tu ataque: ${this.ataque}\n</div>
         <div>Ataque enemigo: ${ataqueEnemigo}\n</div></div>`);
+        $("#combate-log").slideDown(250);
         
         if(this.ataque>ataqueEnemigo){
             this.experiencia = parseInt(localStorage.getItem('experiencia'));
             this.experiencia += 30;
             localStorage.setItem('experiencia', this.experiencia);
             
-            $("#botones-control").append(`<div id="div-victoria">Ganaste el combate! Experiencia +30</div>`);
+            $("#botones-control").append(`<div id="div-victoria" style="display: none">Ganaste el combate! Experiencia +30</div>`);
+            $("#div-victoria").slideDown(250);
             
             if (this.experiencia>=50) {
                 this.nivel += 1;
@@ -58,7 +60,8 @@ class Personaje{
                 localStorage.setItem('salud', this.salud);
                 localStorage.setItem('experiencia', this.experiencia);
 
-                $("#botones-control").append(`<div id="subida-nivel">Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`);
+                $("#botones-control").append(`<div id="subida-nivel" style="display: none">Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`);
+                $("#subida-nivel").slideDown(250);
             }
         }else{
             let dañoSalud = ataqueEnemigo-this.defensa;
@@ -72,7 +75,8 @@ class Personaje{
                 localStorage.setItem('salud', this.salud);
             }
 
-            $("#botones-control").append(`<div id="div-derrota">No ganaste el combate!\nRecibiste ${dañoSalud} de daño\nTu salud restante es: ${this.salud}</div>`);
+            $("#botones-control").append(`<div id="div-derrota" style="display: none">No ganaste el combate!\nRecibiste ${dañoSalud} de daño\nTu salud restante es: ${this.salud}</div>`);
+            $("#div-derrota").slideDown(250);
         }   
     }
 
@@ -85,7 +89,8 @@ class Personaje{
         this.experiencia += 10;
         localStorage.setItem('experiencia', this.experiencia);
 
-        $("#botones-control").append(`<div id="div-experiencia">Entrenaste! Experiencia +10</div>`);
+        $("#botones-control").append(`<div id="div-experiencia" style="display: none">Entrenaste! Experiencia +10</div>`);
+        $("#div-experiencia").slideDown(250).delay(1000).slideUp(250);;
 
         if (this.experiencia>=50) {
             this.nivel += 1;
@@ -99,7 +104,8 @@ class Personaje{
             localStorage.setItem('salud', this.salud);
             localStorage.setItem('experiencia', this.experiencia);
 
-            $("#botones-control").append(`<div id="subida-nivel">Subiste de nivel!\nNivel +1\nAtaque +5\nDefensa +5\nSalud +5</div>`);
+            $("#botones-control").append(`<div id="subida-nivel" style="display: none">Subiste de nivel!\n*Nivel +1\n*Ataque +5\n*Defensa +5\n*Salud +5</div>`);
+            $("#subida-nivel").slideDown(250);
         }        
     }
 
@@ -116,17 +122,20 @@ class Personaje{
             $("#inventario-lleno").remove();
         }
         if (this.inventario.length>=6) {
-            $("#lista-inventario").append(`<div id="inventario-lleno">Tu inventario esta lleno!</div>`);
+            $("#inventario").append(`<div id="inventario-lleno" style="display: none">Tu inventario esta lleno!</div>`);
+            $("#inventario-lleno").slideDown(250);
 
         }else{
             this.inventario.push(items_array[item_index]);
             localStorage.setItem('inventario', this.inventario);
 
-            $("#lista-inventario").append(`<li>${this.inventario[this.inventario.length-1]}`);
+            $("#lista-inventario").append(`<li style="display: none">${this.inventario[this.inventario.length-1]}`);
+            $("#lista-inventario li").slideDown(250);
         }
         console.log(this.inventario);
 
-        $("#lista-inventario").append(`<div id="item-encontrado">Encontraste un item, tenes ${this.inventario.length} items</div>`);
+        $("#inventario").append(`<div id="item-encontrado" style="display: none">Encontraste un item, tenes ${this.inventario.length} items</div>`);
+        $("#item-encontrado").slideDown(250).delay(1000).slideUp(250);
     }    
 }
 function reset(){
@@ -183,7 +192,7 @@ function actualizarStats() {
 
 /* Inicio de lo que se imprime en pantalla */
 $('#stats-inicio').submit(function(e){
-    /* event.preventDefault(); */
+    /* e.preventDefault(); */
     let nombre = $("#nombre").val();
     let ataque = $("#ataque").val();
     let defensa = $("#defensa").val();
@@ -273,7 +282,8 @@ $("#combatir").click(function (event) {
             $("#div-experiencia").remove();
         }
         limpiarLog();
-        $("body").append(`<h2 id="final-partida">${localStorage.getItem('nombre')} se debilito! Se acabo la aventura</h2>`);
+        $("body").append(`<h2 id="final-partida" style="display: none">${localStorage.getItem('nombre')} se debilito! Se acabo la aventura</h2>`);
+        $("#final-partida").fadeIn("slow");
     }
 })
 
