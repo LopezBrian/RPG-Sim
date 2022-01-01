@@ -27,7 +27,7 @@ class Personaje{
 
         this.nivel = parseInt(localStorage.getItem('nivel'));
         this.ataque = parseInt(localStorage.getItem('ataque'));
-        this.defensa = parseInt(localStorage.getItem('ataque'));
+        this.defensa = parseInt(localStorage.getItem('defensa'));
         this.salud = parseInt(localStorage.getItem('salud'));
         this.contador_enemigo = parseInt(localStorage.getItem('contador'));
         
@@ -97,7 +97,7 @@ class Personaje{
         this.experiencia = parseInt(localStorage.getItem('experiencia'));
         this.nivel = parseInt(localStorage.getItem('nivel'));
         this.ataque = parseInt(localStorage.getItem('ataque'));
-        this.defensa = parseInt(localStorage.getItem('ataque'));
+        this.defensa = parseInt(localStorage.getItem('defensa'));
         this.salud = parseInt(localStorage.getItem('salud'));
         this.experiencia += 10;
         localStorage.setItem('experiencia', this.experiencia);
@@ -232,7 +232,7 @@ function itemSeleccionado (item) {
     this.experiencia = parseInt(localStorage.getItem('experiencia'));
     this.nivel = parseInt(localStorage.getItem('nivel'));
     this.ataque = parseInt(localStorage.getItem('ataque'));
-    this.defensa = parseInt(localStorage.getItem('ataque'));
+    this.defensa = parseInt(localStorage.getItem('defensa'));
     this.salud = parseInt(localStorage.getItem('salud'));
 
     console.log(usarItem);
