@@ -139,19 +139,24 @@ class Personaje{
             $("#inventario-lleno").slideDown(250);
 
         }else{
-            this.inventario.push(items_array[item_index]);
-            localStorage.setItem('inventario', JSON.stringify(this.inventario));
             let indexVacio = localStorage.getItem('itemIndex');
-
+            console.log(indexVacio);
+            console.log(this.inventario);
             if (indexVacio == null){
+                this.inventario.push(items_array[item_index]);
+                localStorage.setItem('inventario', JSON.stringify(this.inventario));
+                console.log(this.inventario);
                 $("#lista-inventario").append(`<li id="item${this.inventario.length-1}" style="display: none">${this.inventario.length} - ${this.inventario[this.inventario.length-1]}`);
             }else{
                 indexVacio = parseInt(indexVacio);
+                this.inventario.splice(indexVacio - 1, 0, items_array[item_index]);
+                localStorage.setItem('inventario', JSON.stringify(this.inventario));
+                console.log(this.inventario);
                 $("#lista-inventario").append(`<li id="item${indexVacio-1}" style="display: none">${indexVacio} - ${this.inventario[indexVacio-1]}`);
+                localStorage.removeItem('itemIndex');
             }
             $("#lista-inventario li").slideDown(250);
         }
-        console.log(this.inventario);
         $("#inventario").append(`<div id="item-encontrado" style="display: none">Encontraste un item, tenes ${this.inventario.length} items</div>`);
         $("#item-encontrado").slideDown(250).delay(1000).slideUp(250);
     }    
